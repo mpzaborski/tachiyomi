@@ -102,6 +102,10 @@ object ImageUtil {
      * Check whether the image is a double-page spread
      * @return true if the width is greater than the height
      */
+    fun isDoublePage(openStream: () -> InputStream): Boolean {
+        return openStream().use { isDoublePage(it) }
+    }
+
     fun isDoublePage(imageStream: InputStream): Boolean {
         imageStream.mark(imageStream.available() + 1)
 

@@ -69,6 +69,7 @@ import eu.kanade.tachiyomi.ui.reader.viewer.ReaderProgressIndicator
 import eu.kanade.tachiyomi.ui.reader.viewer.pager.R2LPagerViewer
 import eu.kanade.tachiyomi.util.preference.toggle
 import eu.kanade.tachiyomi.util.storage.getUriCompat
+import eu.kanade.tachiyomi.util.system.ImageUtil
 import eu.kanade.tachiyomi.util.system.applySystemAnimatorScale
 import eu.kanade.tachiyomi.util.system.createReaderThemeContext
 import eu.kanade.tachiyomi.util.system.getThemeColor
@@ -747,6 +748,13 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
     @SuppressLint("SetTextI18n")
     fun onPageSelected(page: ReaderPage) {
         presenter.onPageSelected(page)
+        val stream = page.stream!!
+        if (ImageUtil.isDoublePage(stream)) {
+            presenter.setMangaOrientationType(OrientationType.LANDSCAPE.flagValue)
+        } else {
+            presenter.setMangaOrientationType(OrientationType.PORTRAIT.flagValue)
+        }
+
         val pages = page.chapter.pages ?: return
 
         // Set bottom page number
