@@ -748,11 +748,16 @@ class ReaderActivity : BaseRxActivity<ReaderActivityBinding, ReaderPresenter>() 
     @SuppressLint("SetTextI18n")
     fun onPageSelected(page: ReaderPage) {
         presenter.onPageSelected(page)
-        val stream = page.stream!!
-        if (ImageUtil.isDoublePage(stream)) {
-            presenter.setMangaOrientationType(OrientationType.LANDSCAPE.flagValue)
-        } else {
-            presenter.setMangaOrientationType(OrientationType.PORTRAIT.flagValue)
+
+        try {
+            val stream = page.stream!!
+            if (ImageUtil.isDoublePage(stream)) {
+                presenter.setMangaOrientationType(OrientationType.LANDSCAPE.flagValue)
+            } else {
+                presenter.setMangaOrientationType(OrientationType.PORTRAIT.flagValue)
+            }
+        } catch (e: Exception) {
+        } finally {
         }
 
         val pages = page.chapter.pages ?: return

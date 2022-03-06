@@ -114,7 +114,7 @@ object ImageUtil {
         val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, options)
 
-        imageStream.reset()
+        // imageStream.reset()
 
         return options.outWidth > options.outHeight
     }
